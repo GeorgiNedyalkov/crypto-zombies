@@ -17,7 +17,7 @@ contract ZombieFactory {
     event NewZombie(uint256 zombieId, string name, uint256 dna);
 
     // prive function are named with _function
-    function _createZombie(string memory _name, uint256 _dna) private {
+    function _createZombie(string memory _name, uint256 _dna) internal {
         uint256 id = zombies.push(Zombie(_name, _dna)) - 1;
         zombieToOwner[id] = msg.sender;
         ownerZombieCount[msg.sender]++;
