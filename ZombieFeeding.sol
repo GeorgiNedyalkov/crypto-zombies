@@ -2,7 +2,26 @@ pragma solidity >=0.5.0 <0.6.0;
 
 import "./ZombieFactory.sol";
 
+contract KittyInterface {
+    function getKitty(uint256 _id) external view returns (
+    bool isGestating,
+    bool isReady,
+    uint256 cooldownIndex,
+    uint256 nextActionAt,
+    uint256 siringWithId,
+    uint256 birthTime,
+    uint256 matronId,
+    uint256 sireId,
+    uint256 generation,
+    uint256 genes
+);
+
 contract ZombieFeeding is ZombieFactory {
+
+    address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+
+    KittyInterface kittyContract = KittyInterface(ckAddress);
+
     function feedAndMultiply(uint256 _zombieId, uint256 _targetDna) public {
         require(msg.sender == zombieToOwner[_zombieId]);
         Zombie storage myZombie = zombies[_zombieId];
@@ -12,3 +31,4 @@ contract ZombieFeeding is ZombieFactory {
         _createZombie("NoName", newDna);
     }
 }
+
